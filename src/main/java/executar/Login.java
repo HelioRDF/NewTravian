@@ -2,10 +2,10 @@ package executar;
 
 import org.openqa.selenium.By;
 
-import ambiente.CapturaTela;
 import ambiente.Selenium;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
+import util.MensagenConsole;
 import util.Tempo;
 
 public class Login {
@@ -58,6 +58,7 @@ public class Login {
 	@Entao("Acesso a pagina Principal")
 	private static void acesso_a_pagina_principal() {
 		String playerName = Selenium.driver.findElement(By.className("playerName")).getText();
-		System.out.println("Login executado: " + playerName);
+		MensagenConsole.info("Login executado: " + playerName);
+		Tempo.aguardarEmSegundos(false, 3, playerName);
 	}
 }

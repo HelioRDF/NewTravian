@@ -6,8 +6,8 @@ public class Tempo {
 		long segundos = tempoSegundos * 1000;
 		try {
 			if (log) {
-				System.out.println(mensagem);
-				System.out.println("Aguardando: " + tempoSegundos + " segundos.");
+				MensagenConsole.info(mensagem);
+				MensagenConsole.info("Aguardando: " + tempoSegundos + " segundos.");
 			}
 			Thread.sleep(segundos);
 		} catch (InterruptedException e) {
@@ -20,7 +20,7 @@ public class Tempo {
 		long minutos = tempoMinutos * 1000 * 60;
 		try {
 			if (log) {
-				System.out.println(mensagem + "\n Aguardar: "+ (tempoMinutos)+" minutos");
+				MensagenConsole.info(mensagem + "\n Aguardar: " + (tempoMinutos) + " minutos");
 			}
 			Thread.sleep(minutos);
 
@@ -34,8 +34,8 @@ public class Tempo {
 		long horas = tempoHoras * 1000 * 60 * 60;
 		try {
 			if (log) {
-				System.out.println(mensagem);
-				System.out.println("Aguardando: " + tempoHoras + " Horas.");
+				MensagenConsole.info(mensagem);
+				MensagenConsole.info("Aguardando: " + tempoHoras + " Horas.");
 			}
 			Thread.sleep(horas);
 

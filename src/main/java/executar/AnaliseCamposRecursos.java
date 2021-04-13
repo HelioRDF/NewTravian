@@ -15,19 +15,12 @@ public class AnaliseCamposRecursos {
 	boolean imprimir = false;
 
 	public static ArrayList<Campo> criarListaCampos() {
-		List<WebElement> links = Selenium.driver.findElements(By.xpath("//div[@id='resourceFieldContainer']/a"));
-		System.out.println("...");
+		List<WebElement> links = Selenium.driver.findElements(By.xpath("//div[@id='resourceFieldContainer']/a[@class!='villageCenter']"));
 		ArrayList<Campo> campos = new ArrayList<Campo>();
 		for (WebElement webElement : links) {
 			String link = webElement.getAttribute("href");
-			if (link.contains("dorf2")) {
-				System.out.println("---Dorf---");
-				continue;
-			}
-
 			String testarNvl = webElement.getText();
 			int nivel = 0;
-
 			if (testarNvl.length()>0) {
 				nivel = Integer.parseInt(webElement.getText());
 			}
@@ -36,7 +29,7 @@ public class AnaliseCamposRecursos {
 			campos.add(campo);
 		}
 		Collections.sort(campos, new OrganizarListaPorNivel());
-		ExcelSalvar.salvarDadosCampos(campos);
+		//ExcelSalvar.salvarDadosCampos(campos);
 		for (Campo campo : campos) {
 			System.out.println("\t| Nivel: " + campo.getNivel() + "\t| Tempo:" + campo.retornaTempoTotalEmMinutos()
 					+ "\t|" + campo.getLink());

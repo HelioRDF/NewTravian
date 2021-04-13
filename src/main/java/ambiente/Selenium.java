@@ -1,7 +1,14 @@
 package ambiente;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import util.Tempo;
 
 public class Selenium {
 	public static WebDriver driver;
@@ -16,10 +23,23 @@ public class Selenium {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		// driver.manage().window().setPosition(new Point(200, 200));
-		// driver.manage().window().setSize(new Dimension(1200, 765));
+		driver.manage().window().setSize(new Dimension(1700, 990));
 		driver.get(travianUrl);
 	}
-	
+
+	public static void pagina(String url) {
+		driver.get(url);
+		Tempo.aguardarEmSegundos(false, 5, "Abrindo página" + url );
+	}
+
+	public static List<WebElement> listaWebElement(String xpath) {
+		return (List<WebElement>) driver.findElements(By.xpath(xpath));
+	}
+
+	public static WebElement webElement(String xpath) {
+		return driver.findElement(By.xpath(xpath));
+	}
+
 	public static void fecharSessao() {
 		driver.quit();
 	}

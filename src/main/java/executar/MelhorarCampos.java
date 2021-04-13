@@ -20,13 +20,13 @@ public class MelhorarCampos {
 		intevaloMelhorias = intervalo;
 		Tempo.aguardarEmMinutos(true, tempo, "Aguardando para iniciar");
 		Login.executarLogin();
-		Selenium.driver.get(aldeia);
+		Selenium.pagina(aldeia);
 		CapturaTela.screenshot("Aldeia Inicial");
 		int loop = 1;
 		while (loop <= repetir) {
 
 			ArrayList<Campo> campos = AnaliseCamposRecursos.criarListaCampos();
-			System.out.println("----------------> Iniciando Loop " + loop + " <----------------");
+			System.out.println("\n----------------> Iniciando Loop " + loop + " <----------------\n");
 			iniciarMelhoriaRecursos(campos, aldeia);
 			loop++;
 			Tempo.aguardarEmMinutos(true, 1, "\n\n\n----> Aguardando novo ciclo <----\n\n\n");
@@ -38,9 +38,9 @@ public class MelhorarCampos {
 	private static void iniciarMelhoriaRecursos(ArrayList<Campo> campos, String aldeia) {
 		int contador = 1;
 		for (Campo campo : campos) {
-			
+
 			Tempo.aguardarEmSegundos(false, 5, aldeia);
-			Selenium.driver.get(aldeia);
+			Selenium.pagina(aldeia);
 			confirmarMelhoria(campo, contador);
 			if (contador == 6) {
 				break;
@@ -53,10 +53,10 @@ public class MelhorarCampos {
 		Login.executarLogin();
 
 		for (int num = 0; num <= repetir; num++) {
-			Selenium.driver.get(aldeia);
-			Tempo.aguardarEmSegundos(false, 55, "\nZzZZzzz");
-			Selenium.driver.get(link);
-			Tempo.aguardarEmSegundos(false, 15, "\nZzZZzzz");
+			Tempo.aguardarEmSegundos(true, 60, "\nZzZZzzz");
+			Selenium.pagina(aldeia);
+			Selenium.pagina(link);
+
 			System.out.println("\n <--------------------Inicio Ciclo: " + num + "------------------------> ");
 			String tempoConstrucao = Selenium.driver.findElement(By.xpath("//div[@class='inlineIcon duration']/span"))
 					.getText();
@@ -71,19 +71,19 @@ public class MelhorarCampos {
 
 	public static void confirmarMelhoria(Campo campo, int contador) {
 		LocalTime horaAtual = LocalTime.now();
+		Selenium.pagina(campo.getLink());
 
-		Selenium.driver.get(campo.getLink());
 		String tempoConstrucao = Selenium.driver.findElement(By.xpath("//div[@class='inlineIcon duration']/span"))
 				.getText();
 		String tempoConstrucaoParte[] = tempoConstrucao.split(":", 3);
 		campo.setTempoMelhoriaHora(Long.parseLong(tempoConstrucaoParte[0]));
 		campo.setTempoMelhoriaMinuto(Long.parseLong(tempoConstrucaoParte[1]));
-		tempoTotal = campo.retornaTempoTotalEmMinutos();
+		tempoTotal = campo.retornaTempoTotalEmMinutos()+2;
 		System.out.println("\n  ------------> Analisando construção " + campo.getNomeCampo() + " - Loop:" + contador
-				+ " <-----------------------");
+				+ " <-----------------------\n");
 
 		System.out.println("Tempo Comun: " + tempoTotal);
-		if (validarDisponibilidade()) {
+		if (validarDisponibilidade(campo)) {
 			System.out.println("Tempo Aplicado: " + tempoTotal);
 			Tempo.aguardarEmMinutos(true, tempoTotal,
 					"\nHora Inicial: " + horaAtual + "\nHora Final: " + horaAtual.plusMinutes(tempoTotal));
@@ -91,7 +91,7 @@ public class MelhorarCampos {
 		contador++;
 	}
 
-	private static boolean validarDisponibilidade() {
+	private static boolean validarDisponibilidade(Campo campo) {
 		boolean confirmado = false;
 		WebElement botaoConfirmarMelhoria = null;
 		WebElement botaoConfirmarMelhoriaRapido = null;
@@ -101,18 +101,23 @@ public class MelhorarCampos {
 		} catch (NoSuchElementException e) {
 			botaoConfirmarMelhoriaRapido = botaoConfirmarMelhoria;
 		}
-		System.out.println("--> " + botaoConfirmarMelhoria.getText());
-		System.out.println("--> " + botaoConfirmarMelhoriaRapido.getText());
+		System.out.println("--> Confirmar  " + botaoConfirmarMelhoria.getText());
+		System.out.println("--> Confirmar rapido  " + botaoConfirmarMelhoriaRapido.getText());
 		if (botaoConfirmarMelhoria.getText().contains("Construindo")
 				|| botaoConfirmarMelhoria.getText().contains("Construct")) {
 			Tempo.aguardarEmMinutos(true, 5, "\n\n Ops -> Melhoria indisponível");
 		} else {
-			System.out.println("\n\n---- Texto--------" + botaoConfirmarMelhoriaRapido.getText());
-			if (botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
-					|| botaoConfirmarMelhoriaRapido.getText().contains("faster")) {
+			System.out.println("\n\n---- Texto--------" + botaoConfirmarMelhoriaRapido.getText()+"\t campo NVL: "+campo.getNivel());
+			if (campo.getNivel() >=5 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
+					|| botaoConfirmarMelhoriaRapido.getText().contains("faster") ) {
 				tempoTotal = (tempoTotal / 4) * 3;
+				System.out.println("------> Fast");
+				botaoConfirmarMelhoriaRapido.click();
+			}else {
+				botaoConfirmarMelhoria.click();
+				System.out.println("------> Normal");
 			}
-			botaoConfirmarMelhoriaRapido.click();
+		
 			confirmado = true;
 			System.out.println("\n - Uauu -> Melhoria confirmada!");
 		}
