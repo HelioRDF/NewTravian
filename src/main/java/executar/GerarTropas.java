@@ -12,7 +12,7 @@ public class GerarTropas {
 		Selenium.driver.get(aldeia);
 		Tempo.aguardarEmSegundos(false, 5, aldeia);
 		Selenium.driver.get(linkQuartel);
-		criarTropasT1T2(totalTropas);
+		criarTropasT2T4(totalTropas);
 
 	}
 
@@ -32,6 +32,14 @@ public class GerarTropas {
 		Selenium.driver.findElement(By.xpath("//input[@name='t1']")).sendKeys(totalTropas);
 		Selenium.driver.findElement(By.xpath("//input[@name='t2']")).sendKeys(totalTropas);
 		Selenium.driver.findElement(By.id("s1")).click();
+
+	}
+
+	private static void criarTropasT2T4(String totalTropas) {
+		Selenium.driver.findElement(By.xpath("//input[@name='t2']")).sendKeys(totalTropas);
+		Selenium.driver.findElement(By.xpath("//input[@name='t4']")).sendKeys(totalTropas);
+		Selenium.driver.findElement(By.id("s1")).click();
+		Tempo.aguardarEmSegundos(false, 30, "");
 
 	}
 

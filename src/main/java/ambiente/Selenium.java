@@ -37,6 +37,7 @@ public class Selenium {
 	}
 
 	public static WebElement webElement(String xpath) {
+		Tempo.aguardarEmSegundos(false, 3, xpath);
 		return driver.findElement(By.xpath(xpath));
 	}
 

@@ -70,17 +70,20 @@ public class MelhorarCamposV2 {
 		}
 		if (botaoConfirmarMelhoria.getText().contains("Construindo")
 				|| botaoConfirmarMelhoria.getText().contains("Construct")) {
-			Tempo.aguardarEmSegundos(true, 5, "Ops -> Melhoria indisponível");
+			Tempo.aguardarEmSegundos(true, 10, "Ops -> Melhoria indisponível");
 		} else {
-			if (nivel >= 7 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
+			if (nivel >= 20 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
 					|| botaoConfirmarMelhoriaRapido.getText().contains("faster")) {
+				Tempo.aguardarEmMinutos(true, 2, "----- End confirmarMelhoria Rapida------");
 				MensagenConsole.info("Melhoria rápida, Nvl: " + nivel);
 				botaoConfirmarMelhoriaRapido.click();
 			} else {
+				Tempo.aguardarEmSegundos(true, 5, "----- End confirmarMelhoria normal------");
 				botaoConfirmarMelhoria.click();
 				MensagenConsole.info("Melhoria Normal, Nvl: " + nivel);
+				
 			}
 		}
-		Tempo.aguardarEmMinutos(false, 2, null);
+		
 	}
 }
