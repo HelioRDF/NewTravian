@@ -53,8 +53,8 @@ public class MelhorarCamposV2 {
 			WebElement tempoMelhoria = Selenium.webElement("//div[@class='buildDuration']/span");
 			MensagenConsole.info("Melhoria em andamento: " + tempoMelhoria.getText());
 		} else {
-			//Ativar validação fora do campo
-			//disponivel = true;
+			// Ativar validação fora do campo
+			// disponivel = true;
 		}
 		return disponivel;
 	}
@@ -68,22 +68,28 @@ public class MelhorarCamposV2 {
 		} catch (NoSuchElementException e) {
 			botaoConfirmarMelhoriaRapido = botaoConfirmarMelhoria;
 		}
-		if (botaoConfirmarMelhoria.getText().contains("Construindo")
-				|| botaoConfirmarMelhoria.getText().contains("Construct")) {
-			Tempo.aguardarEmSegundos(true, 10, "Ops -> Melhoria indisponível");
-		} else {
-			if (nivel >= 20 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
-					|| botaoConfirmarMelhoriaRapido.getText().contains("faster")) {
-				Tempo.aguardarEmMinutos(true, 2, "----- End confirmarMelhoria Rapida------");
-				MensagenConsole.info("Melhoria rápida, Nvl: " + nivel);
-				botaoConfirmarMelhoriaRapido.click();
+
+		try {
+			if (botaoConfirmarMelhoria.getText().contains("Construindo")
+					|| botaoConfirmarMelhoria.getText().contains("Construct")) {
+				Tempo.aguardarEmSegundos(true, 10, "Ops -> Melhoria indisponível");
 			} else {
-				Tempo.aguardarEmSegundos(true, 5, "----- End confirmarMelhoria normal------");
-				botaoConfirmarMelhoria.click();
-				MensagenConsole.info("Melhoria Normal, Nvl: " + nivel);
-				
+				if (nivel >= 20 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
+						|| botaoConfirmarMelhoriaRapido.getText().contains("faster")) {
+					Tempo.aguardarEmMinutos(true, 2, "----- End confirmarMelhoria Rapida------");
+					MensagenConsole.info("Melhoria rápida, Nvl: " + nivel);
+					botaoConfirmarMelhoriaRapido.click();
+				} else {
+					Tempo.aguardarEmSegundos(true, 5, "----- End confirmarMelhoria normal------");
+					botaoConfirmarMelhoria.click();
+					MensagenConsole.info("Melhoria Normal, Nvl: " + nivel);
+
+				}
 			}
+
+		} catch (NullPointerException e) {
+			System.out.println("Botão não identificado em MelhorarV2");
 		}
-		
+
 	}
 }
