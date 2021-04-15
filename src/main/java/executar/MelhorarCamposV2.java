@@ -47,14 +47,19 @@ public class MelhorarCamposV2 {
 	}
 
 	private static boolean disponivelParaMelhorar() {
-		List<WebElement> h5 = Selenium.listaWebElement("//h5");
 		boolean disponivel = true;
-		if (h5.size() > 0) {
-			WebElement tempoMelhoria = Selenium.webElement("//div[@class='buildDuration']/span");
-			MensagenConsole.info("Melhoria em andamento: " + tempoMelhoria.getText());
-		} else {
-			// Ativar validação fora do campo
-			// disponivel = true;
+		try {
+			List<WebElement> h5 = Selenium.listaWebElement("//h5");
+			if (h5.size() > 0) {
+				WebElement tempoMelhoria = Selenium.webElement("//div[@class='buildDuration']/span");
+				MensagenConsole.info("Melhoria em andamento: " + tempoMelhoria.getText());
+			} else {
+				// Ativar validação fora do campo
+				// disponivel = true;
+			}
+
+		} catch (NoSuchElementException e) {
+			System.out.println("Erro em MelhorarCamposV2/disponivelParaMelhorar");
 		}
 		return disponivel;
 	}
