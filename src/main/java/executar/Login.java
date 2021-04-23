@@ -36,7 +36,7 @@ public class Login {
 
 	@Dado("Digitei a senha")
 	private static void digitei_a_senha() {
-		String password = "Killer17";
+		String password = "killer17";
 		Selenium.driver.findElement(By.name("password")).sendKeys(password);
 	}
 

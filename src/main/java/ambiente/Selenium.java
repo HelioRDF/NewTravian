@@ -14,7 +14,7 @@ public class Selenium {
 	public static WebDriver driver;
 	// public static String travianUrl = "https://tx3.travian.com/";
 	// public static String travianUrl = "https://ts4.travian.com/";
-	public static String travianUrl = "https://ts100.x10.international.travian.com/";
+	public static String travianUrl = "https://tse.x5.international.travian.com/";
 	// public static String travianUrl =
 	// "https://my.jive.com/domain/05a7d5ed-a6ec-423c-bbb5-675ea582e427/user/a46b4814-3612-4132-8218-adda64115a3c/main";
 

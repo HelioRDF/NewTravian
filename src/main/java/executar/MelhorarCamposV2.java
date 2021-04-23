@@ -79,17 +79,17 @@ public class MelhorarCamposV2 {
 					|| botaoConfirmarMelhoria.getText().contains("Construct")) {
 				Tempo.aguardarEmSegundos(true, 10, "Ops -> Melhoria indisponível");
 			} else {
-				if (nivel >= 20 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
-						|| botaoConfirmarMelhoriaRapido.getText().contains("faster")) {
-					Tempo.aguardarEmMinutos(true, 2, "----- End confirmarMelhoria Rapida------");
-					MensagenConsole.info("Melhoria rápida, Nvl: " + nivel);
-					botaoConfirmarMelhoriaRapido.click();
-				} else {
-					Tempo.aguardarEmSegundos(true, 5, "----- End confirmarMelhoria normal------");
-					botaoConfirmarMelhoria.click();
-					MensagenConsole.info("Melhoria Normal, Nvl: " + nivel);
+//				if (nivel >= 15 & botaoConfirmarMelhoriaRapido.getText().contains("mais rápido")
+//						|| botaoConfirmarMelhoriaRapido.getText().contains("faster")) {
+//					Tempo.aguardarEmMinutos(true, 2, "----- End confirmarMelhoria Rapida------");
+//					MensagenConsole.info("Melhoria rápida, Nvl: " + nivel);
+//					botaoConfirmarMelhoriaRapido.click();
+//				} else {
+				Tempo.aguardarEmSegundos(true, 5, "----- End confirmarMelhoria normal------");
+				botaoConfirmarMelhoria.click();
+				MensagenConsole.info("Melhoria Normal, Nvl: " + nivel);
 
-				}
+				// }
 			}
 
 		} catch (NullPointerException e) {
